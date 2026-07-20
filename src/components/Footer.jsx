@@ -1,81 +1,75 @@
 import { Link } from "react-router-dom";
 import { FaFacebookF, FaInstagram, FaTwitter } from "react-icons/fa";
 
-const playfair = { fontFamily: "'Playfair Display', Georgia, serif" };
-const inter = { fontFamily: "'Inter', sans-serif" };
+const sans = { fontFamily: "'DM Sans', sans-serif" };
+const display = { fontFamily: "'DM Serif Display', Georgia, serif" };
+
+const LINKS = {
+  School: [["About", "/AboutFaith"], ["Admissions", "/admission"], ["Contact", "/ContactFaith"]],
+  Academics: [["Results Portal", "/results"], ["Register", "/register"]],
+};
 
 export default function Footer() {
   return (
-    <footer className="bg-[#081F18] text-white">
+    <footer style={sans} className="bg-[#0a1628] text-white">
       {/* CTA band */}
-      <div className="border-b border-white/10 py-12 px-6 lg:px-10">
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div className="border-b border-white/10">
+        <div className="max-w-7xl mx-auto px-6 xl:px-10 py-16 flex flex-col md:flex-row items-center justify-between gap-8">
           <div>
-            <h3 className="text-xl font-bold text-white mb-1" style={playfair}>
-              Ready to join Faith?
+            <h3 className="text-2xl sm:text-3xl font-normal text-white mb-2" style={display}>
+              Ready to be part of<br />
+              <em>the Faith family?</em>
             </h3>
-            <p className="text-white/50 text-sm" style={inter}>Applications are open for the next academic session.</p>
+            <p className="text-white/40 text-sm">Applications open for the next academic session.</p>
           </div>
           <Link
             to="/admission"
-            className="shrink-0 px-7 py-3 bg-[#C9A84C] text-[#0D3B2E] text-sm font-semibold rounded hover:bg-[#E8C96A] transition-colors"
-            style={inter}
+            className="shrink-0 px-8 py-3.5 bg-[#c8102e] text-white text-[14px] font-semibold rounded hover:bg-[#a50d26] transition-colors"
           >
             Apply Now
           </Link>
         </div>
       </div>
 
-      {/* Main footer */}
-      <div className="max-w-6xl mx-auto px-6 lg:px-10 py-14 grid grid-cols-2 md:grid-cols-4 gap-10">
+      {/* Main */}
+      <div className="max-w-7xl mx-auto px-6 xl:px-10 py-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
         {/* Brand */}
-        <div className="col-span-2 md:col-span-1">
-          <div className="flex items-center gap-2 mb-4">
-            <div className="w-8 h-8 rounded-full border border-[#C9A84C] flex items-center justify-center">
-              <span className="text-[#C9A84C] text-[10px] font-bold tracking-widest" style={playfair}>FSS</span>
-            </div>
-            <span className="text-white font-semibold text-sm" style={inter}>Faith Secondary</span>
+        <div className="sm:col-span-2 lg:col-span-1">
+          <div className="flex items-center gap-2.5 mb-5">
+            <div className="w-8 h-8 bg-white rounded flex items-center justify-center text-[#0a1628] text-xs font-bold tracking-wider">FSS</div>
+            <span className="text-white font-medium text-[14px]">Faith Secondary</span>
           </div>
-          <p className="text-white/40 text-xs leading-relaxed mb-6" style={inter}>
-            Lux Mentis, Lux Orbis — The Light of the Mind is the Light of the World.
+          <p className="text-white/35 text-sm leading-relaxed mb-6">
+            Lux Mentis, Lux Orbis<br />
+            Makurdi, Benue State, Nigeria
           </p>
           <div className="flex gap-3">
             {[FaFacebookF, FaInstagram, FaTwitter].map((Icon, i) => (
-              <a key={i} href="#" className="w-7 h-7 rounded-full border border-white/10 flex items-center justify-center text-white/50 hover:border-[#C9A84C] hover:text-[#C9A84C] transition-colors">
-                <Icon size={11} />
+              <a key={i} href="#" className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-white/40 hover:text-white hover:border-white/30 transition-colors">
+                <Icon size={12} />
               </a>
             ))}
           </div>
         </div>
 
-        {/* Quick links */}
-        <div>
-          <h4 className="text-white/60 text-[10px] tracking-[0.2em] uppercase mb-4" style={inter}>Explore</h4>
-          <ul className="space-y-2.5">
-            {[["Home", "/"], ["About", "/AboutFaith"], ["Admissions", "/admission"], ["Contact", "/ContactFaith"]].map(([label, to]) => (
-              <li key={to}>
-                <Link to={to} className="text-white/50 hover:text-white text-sm transition-colors" style={inter}>{label}</Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Academics */}
-        <div>
-          <h4 className="text-white/60 text-[10px] tracking-[0.2em] uppercase mb-4" style={inter}>Academics</h4>
-          <ul className="space-y-2.5">
-            {[["Results Portal", "/results"], ["Staff Directory", "/AboutFaith"], ["Register", "/register"]].map(([label, to]) => (
-              <li key={to}>
-                <Link to={to} className="text-white/50 hover:text-white text-sm transition-colors" style={inter}>{label}</Link>
-              </li>
-            ))}
-          </ul>
-        </div>
+        {/* Link columns */}
+        {Object.entries(LINKS).map(([title, items]) => (
+          <div key={title}>
+            <h4 className="text-[11px] text-white/30 tracking-widest uppercase font-semibold mb-5">{title}</h4>
+            <ul className="space-y-3">
+              {items.map(([label, to]) => (
+                <li key={to}>
+                  <Link to={to} className="text-white/50 text-sm hover:text-white transition-colors">{label}</Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
 
         {/* Contact */}
         <div>
-          <h4 className="text-white/60 text-[10px] tracking-[0.2em] uppercase mb-4" style={inter}>Contact</h4>
-          <ul className="space-y-2.5 text-white/50 text-sm" style={inter}>
+          <h4 className="text-[11px] text-white/30 tracking-widest uppercase font-semibold mb-5">Contact</h4>
+          <ul className="space-y-3 text-white/50 text-sm">
             <li>+234 123 456 7890</li>
             <li>info@faith.edu.ng</li>
             <li className="leading-relaxed">KM 7 Gboko Road,<br />Makurdi, Benue State</li>
@@ -83,8 +77,8 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-white/5 py-6 px-6 lg:px-10">
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between gap-2 text-white/25 text-xs" style={inter}>
+      <div className="border-t border-white/5 px-6 xl:px-10 py-6">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between gap-2 text-white/20 text-xs">
           <span>© {new Date().getFullYear()} Faith Secondary School. All rights reserved.</span>
           <span>Built by Black Sheep Co</span>
         </div>

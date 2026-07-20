@@ -1,105 +1,106 @@
-import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
-const playfair = { fontFamily: "'Playfair Display', Georgia, serif" };
-const inter = { fontFamily: "'Inter', sans-serif" };
+const sans = { fontFamily: "'DM Sans', sans-serif" };
+const display = { fontFamily: "'DM Serif Display', Georgia, serif" };
 
-const STATS = [
-  { value: 450, suffix: "+", label: "Graduates" },
-  { value: 35, suffix: "+", label: "Years of Excellence" },
-  { value: 50, suffix: "+", label: "Qualified Teachers" },
-  { value: 92, suffix: "%", label: "WAEC Pass Rate" },
+const PILLARS = [
+  { label: "Academic Rigour", body: "A curriculum that challenges students to think critically and pursue knowledge with discipline and purpose." },
+  { label: "Moral Formation", body: "Character and faith are the foundation — every subject is built on values that last a lifetime." },
+  { label: "Proven Results", body: "Over 92% WAEC pass rate year on year, with graduates excelling in universities across Nigeria and beyond." },
+  { label: "Dedicated Faculty", body: "50+ experienced teachers who know every student by name and are invested in their individual success." },
 ];
 
-function CountUp({ target, suffix, active }) {
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    if (!active) return;
-    let start = 0;
-    const duration = 1400;
-    const step = 16;
-    const increment = (target / duration) * step;
-    const timer = setInterval(() => {
-      start += increment;
-      if (start >= target) {
-        setCount(target);
-        clearInterval(timer);
-      } else {
-        setCount(Math.floor(start));
-      }
-    }, step);
-    return () => clearInterval(timer);
-  }, [active, target]);
-
-  return <>{count}{suffix}</>;
-}
-
 export default function AboutSection() {
-  const ref = useRef(null);
-  const [active, setActive] = useState(false);
-
-  useEffect(() => {
-    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setActive(true); }, { threshold: 0.3 });
-    if (ref.current) obs.observe(ref.current);
-    return () => obs.disconnect();
-  }, []);
-
   return (
-    <section ref={ref} className="bg-[#F7F3EC] py-24 px-6 lg:px-10">
-      <div className="max-w-6xl mx-auto">
+    <>
+      {/* Mission strip */}
+      <section className="bg-[#faf9f7] py-24 px-6 xl:px-10">
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
 
-        {/* Section label */}
-        <div className="flex items-center gap-4 mb-4">
-          <div className="h-px w-8 bg-[#C9A84C]" />
-          <span className="text-[#C9A84C] text-xs tracking-[0.2em] uppercase" style={inter}>Our Impact</span>
-        </div>
-
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Left: text */}
+          {/* Left: image */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
+            initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.7 }}
             viewport={{ once: true }}
+            className="relative"
           >
-            <h2 className="text-[#0D3B2E] text-3xl sm:text-4xl font-bold leading-tight mb-6" style={playfair}>
-              Building Character,<br />
-              <em className="text-[#C9A84C]">Shaping Futures</em>
-            </h2>
-            <p className="text-gray-600 leading-relaxed mb-4 text-[15px]" style={inter}>
-              For over three decades, Faith Secondary School has stood as a beacon of academic excellence in Benue State. We believe that education goes beyond textbooks — it is the cultivation of integrity, resilience, and purpose.
-            </p>
-            <p className="text-gray-600 leading-relaxed text-[15px]" style={inter}>
-              Our students leave not just with qualifications, but with the confidence to lead and the character to serve.
-            </p>
+            <div className="aspect-[4/3] rounded-lg overflow-hidden bg-gray-200">
+              <img
+                src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=900&q=80&auto=format&fit=crop"
+                alt="Classroom"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            {/* Floating badge */}
+            <div
+              className="absolute -bottom-5 -right-5 bg-[#c8102e] text-white rounded-lg px-6 py-4 shadow-xl"
+              style={sans}
+            >
+              <div className="text-3xl font-bold" style={display}>35+</div>
+              <div className="text-xs text-white/70 mt-0.5">Years Shaping Leaders</div>
+            </div>
           </motion.div>
 
-          {/* Right: stats grid */}
-          <div className="grid grid-cols-2 gap-4">
-            {STATS.map(({ value, suffix, label }, i) => (
+          {/* Right: text */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7 }}
+            viewport={{ once: true }}
+            style={sans}
+          >
+            <p className="text-[#c8102e] text-xs font-semibold tracking-widest uppercase mb-4">Our Mission</p>
+            <h2 className="text-[#0a1628] text-3xl sm:text-4xl font-normal mb-6 leading-tight" style={display}>
+              Building Character,<br />
+              Shaping Futures
+            </h2>
+            <p className="text-gray-500 leading-relaxed mb-4">
+              Faith Secondary School was built on a simple conviction: that every child from Benue deserves world-class education. For over three decades, we have honoured that conviction — producing graduates who lead in medicine, law, engineering, and public service.
+            </p>
+            <p className="text-gray-500 leading-relaxed mb-8">
+              We are not just a school. We are a community — where students are seen, challenged, and prepared for everything life demands.
+            </p>
+            <Link
+              to="/AboutFaith"
+              className="inline-flex items-center gap-2 text-[14px] font-semibold text-[#0a1628] border-b-2 border-[#c8102e] pb-0.5 hover:text-[#c8102e] transition-colors"
+            >
+              Our full story →
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Pillars */}
+      <section className="bg-white py-24 px-6 xl:px-10">
+        <div className="max-w-7xl mx-auto">
+          <div className="max-w-xl mb-14">
+            <p className="text-[#c8102e] text-xs font-semibold tracking-widest uppercase mb-4" style={sans}>Why Choose Faith</p>
+            <h2 className="text-[#0a1628] text-3xl sm:text-4xl font-normal leading-tight" style={display}>
+              Four pillars every<br />parent cares about
+            </h2>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-gray-100 border border-gray-100 rounded-lg overflow-hidden">
+            {PILLARS.map(({ label, body }, i) => (
               <motion.div
                 key={label}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: i * 0.1 }}
+                transition={{ duration: 0.5, delay: i * 0.08 }}
                 viewport={{ once: true }}
-                className={`p-6 rounded-lg ${i === 0 ? "bg-[#0D3B2E] text-white" : "bg-white border border-gray-100"}`}
+                className="bg-white p-8 hover:bg-[#faf9f7] transition-colors group"
+                style={sans}
               >
-                <div
-                  className={`text-3xl sm:text-4xl font-bold mb-1 ${i === 0 ? "text-[#C9A84C]" : "text-[#0D3B2E]"}`}
-                  style={playfair}
-                >
-                  <CountUp target={value} suffix={suffix} active={active} />
-                </div>
-                <div className={`text-xs tracking-wide uppercase ${i === 0 ? "text-white/60" : "text-gray-500"}`} style={inter}>
-                  {label}
-                </div>
+                <div className="w-8 h-0.5 bg-[#c8102e] mb-6 group-hover:w-12 transition-all duration-300" />
+                <h3 className="text-[#0a1628] font-semibold text-[15px] mb-3">{label}</h3>
+                <p className="text-gray-500 text-sm leading-relaxed">{body}</p>
               </motion.div>
             ))}
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }

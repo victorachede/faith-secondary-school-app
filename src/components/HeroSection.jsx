@@ -1,131 +1,102 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
-const playfair = { fontFamily: "'Playfair Display', Georgia, serif" };
-const inter = { fontFamily: "'Inter', sans-serif" };
+const sans = { fontFamily: "'DM Sans', sans-serif" };
+const display = { fontFamily: "'DM Serif Display', Georgia, serif" };
 
 export default function HeroSection() {
   return (
-    <section className="relative min-h-screen bg-[#0D3B2E] flex flex-col items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen overflow-hidden bg-[#0a1628]">
 
-      {/* Subtle texture overlay */}
-      <div
-        className="absolute inset-0 opacity-[0.04]"
-        style={{
-          backgroundImage: `radial-gradient(circle at 1px 1px, #C9A84C 1px, transparent 0)`,
-          backgroundSize: "32px 32px",
-        }}
-      />
-
-      {/* Gold arc — signature element */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] opacity-10 pointer-events-none">
-        <svg viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="600" cy="0" r="400" stroke="#C9A84C" strokeWidth="1.5" fill="none" />
-          <circle cx="600" cy="0" r="300" stroke="#C9A84C" strokeWidth="0.8" fill="none" />
-        </svg>
-      </div>
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] opacity-[0.06] pointer-events-none">
-        <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="0" cy="400" r="280" stroke="#C9A84C" strokeWidth="1" fill="none" />
-        </svg>
+      {/* Full-bleed placeholder image */}
+      <div className="absolute inset-0">
+        <img
+          src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=1600&q=80&auto=format&fit=crop"
+          alt="Students at Faith Secondary School"
+          className="w-full h-full object-cover object-center opacity-40"
+        />
+        {/* Gradient: dark at bottom for text legibility */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0a1628] via-[#0a1628]/60 to-[#0a1628]/20" />
       </div>
 
-      {/* Main content */}
-      <div className="relative z-10 max-w-4xl mx-auto px-6 text-center pt-24 pb-16">
+      {/* Content — pinned to bottom-left like editorial layouts */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 xl:px-10 flex flex-col justify-end min-h-screen pb-20 pt-32">
+        <div className="max-w-2xl">
 
-        {/* Eyebrow */}
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            style={sans}
+            className="text-[#c8102e] text-sm font-semibold tracking-widest uppercase mb-5"
+          >
+            Makurdi, Benue State · Est. Nigeria
+          </motion.p>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+            style={display}
+            className="text-white text-5xl sm:text-6xl lg:text-7xl leading-[1.05] mb-7"
+          >
+            Where Faith
+            <br />
+            Meets <em>Excellence</em>
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.25 }}
+            style={sans}
+            className="text-white/60 text-lg leading-relaxed mb-10 max-w-lg"
+          >
+            Faith Secondary School has shaped the minds and character of Benue's next generation for decades. A school built on discipline, values, and academic rigour.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="flex flex-wrap gap-4"
+            style={sans}
+          >
+            <Link
+              to="/admission"
+              className="px-7 py-3.5 bg-[#c8102e] text-white text-[14px] font-semibold rounded hover:bg-[#a50d26] transition-colors"
+            >
+              Apply for Admission
+            </Link>
+            <Link
+              to="/AboutFaith"
+              className="px-7 py-3.5 border border-white/30 text-white text-[14px] font-medium rounded hover:bg-white/10 transition-colors"
+            >
+              Learn More
+            </Link>
+          </motion.div>
+        </div>
+
+        {/* Bottom stat strip */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-          className="flex items-center justify-center gap-3 mb-8"
-        >
-          <div className="h-px w-12 bg-[#C9A84C]" />
-          <span className="text-[#C9A84C] text-xs tracking-[0.25em] uppercase" style={inter}>
-            Est. Makurdi, Benue State
-          </span>
-          <div className="h-px w-12 bg-[#C9A84C]" />
-        </motion.div>
-
-        {/* Crest circle */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.85 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
-          className="w-20 h-20 mx-auto mb-8 rounded-full border-2 border-[#C9A84C] flex items-center justify-center"
-        >
-          <span className="text-[#C9A84C] font-bold text-xl tracking-wider" style={playfair}>FSS</span>
-        </motion.div>
-
-        {/* Main headline */}
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.2, ease: "easeOut" }}
-          className="text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] mb-6"
-          style={playfair}
-        >
-          Faith Secondary
-          <br />
-          <em className="text-[#C9A84C] not-italic">School</em>
-        </motion.h1>
-
-        {/* Motto */}
-        <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.45 }}
-          className="text-white/50 text-sm tracking-[0.15em] uppercase mb-6"
-          style={inter}
+          transition={{ duration: 0.8, delay: 0.7 }}
+          className="mt-16 pt-8 border-t border-white/10 grid grid-cols-3 gap-8 max-w-lg"
+          style={sans}
         >
-          Lux Mentis, Lux Orbis
-        </motion.p>
-
-        {/* Tagline */}
-        <motion.p
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="text-white/70 text-base sm:text-lg max-w-md mx-auto leading-relaxed mb-12"
-          style={inter}
-        >
-          A citadel of excellence, discipline, and godly heritage — shaping the next generation of Nigerian leaders.
-        </motion.p>
-
-        {/* CTAs */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
-        >
-          <Link
-            to="/admission"
-            className="px-8 py-3 bg-[#C9A84C] text-[#0D3B2E] font-semibold text-sm tracking-wide rounded hover:bg-[#E8C96A] transition-all duration-200 hover:shadow-lg hover:shadow-[#C9A84C]/20"
-            style={inter}
-          >
-            Apply for Admission
-          </Link>
-          <Link
-            to="/AboutFaith"
-            className="px-8 py-3 border border-white/30 text-white text-sm tracking-wide rounded hover:border-white/60 hover:bg-white/5 transition-all duration-200"
-            style={inter}
-          >
-            Discover Our Story
-          </Link>
+          {[
+            { n: "450+", label: "Graduates" },
+            { n: "35+", label: "Years of Excellence" },
+            { n: "92%", label: "WAEC Pass Rate" },
+          ].map(({ n, label }) => (
+            <div key={label}>
+              <div className="text-white text-2xl font-bold mb-0.5" style={display}>{n}</div>
+              <div className="text-white/40 text-xs">{label}</div>
+            </div>
+          ))}
         </motion.div>
       </div>
-
-      {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.4, duration: 1 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-      >
-        <span className="text-white/30 text-[10px] tracking-[0.2em] uppercase" style={inter}>Scroll</span>
-        <div className="w-px h-8 bg-gradient-to-b from-white/30 to-transparent animate-pulse" />
-      </motion.div>
     </section>
   );
 }

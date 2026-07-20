@@ -1,59 +1,24 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&display=swap');
-
-@font-face {
-  font-family: "Poppins";
-  src: url(/fonts/Poppins-Regular.ttf);
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Poppins";
-  src: url(/fonts/Poppins-SemiBold.ttf);
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Poppins";
-  src: url(/fonts/Poppins-Bold.ttf);
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap');
 
 @theme {
-  --color-forest: #0D3B2E;
-  --color-forest-dark: #081F18;
-  --color-gold: #C9A84C;
-  --color-gold-light: #E8C96A;
-  --color-cream: #F7F3EC;
-  --color-cream-dark: #EDE8DF;
-  --color-charcoal: #1A1A1A;
-  --font-display: "Playfair Display", Georgia, serif;
-  --font-body: "Inter", "Poppins", sans-serif;
-  --breakpoint-xs: 480px;
-  --breakpoint-sm: 640px;
-  --breakpoint-md: 768px;
-  --breakpoint-lg: 1024px;
-  --breakpoint-xl: 1280px;
+  --color-navy: #0a1628;
+  --color-red: #c8102e;
+  --color-cream: #faf9f7;
+  --color-muted: #6b7280;
+  --color-border: #e5e7eb;
+  --font-display: "DM Serif Display", Georgia, serif;
+  --font-sans: "DM Sans", system-ui, sans-serif;
 }
 
-*, *::before, *::after { box-sizing: border-box; }
-
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
-
 body {
-  font-family: var(--font-body);
-  background-color: var(--color-cream);
-  color: var(--color-charcoal);
+  font-family: var(--font-sans);
+  background: #ffffff;
+  color: var(--color-navy);
   -webkit-font-smoothing: antialiased;
 }
-
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    transition-duration: 0.01ms !important;
-  }
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
