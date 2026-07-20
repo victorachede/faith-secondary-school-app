@@ -1,76 +1,131 @@
-import { motion } from 'framer-motion';
-import { FaArrowDown } from 'react-icons/fa';
-import BackToTopButton from './BackToTopButton';
-import '../index.css';
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
-const HeroSection = () => {
+const playfair = { fontFamily: "'Playfair Display', Georgia, serif" };
+const inter = { fontFamily: "'Inter', sans-serif" };
+
+export default function HeroSection() {
   return (
-    <section
-      className="relative h-screen bg-center bg-cover bg-no-repeat text-white"
-      style={{
-        backgroundImage: `url('/hero-cambridge.jpg')`,
-      }}
-    >
-      {/* Dark overlay */}
-      <div className="absolute inset-0 bg-black bg-opacity-60 backdrop-blur-sm"></div>
+    <section className="relative min-h-screen bg-[#0D3B2E] flex flex-col items-center justify-center overflow-hidden">
 
-      {/* Content */}
-      <div className="relative z-10 flex flex-col items-center justify-center text-center h-full px-4 sm:px-6 md:px-12 lg:px-20">
-        {/* Heading */}
-        <motion.h1
-          initial={{ opacity: 0, y: -80 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2 }}
-          className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-wider leading-tight drop-shadow-xl font-inter max-w-xs xs:max-w-sm sm:max-w-md mx-auto"
-        >
-          FAITH SECONDARY SCHOOL
-        </motion.h1>
+      {/* Subtle texture overlay */}
+      <div
+        className="absolute inset-0 opacity-[0.04]"
+        style={{
+          backgroundImage: `radial-gradient(circle at 1px 1px, #C9A84C 1px, transparent 0)`,
+          backgroundSize: "32px 32px",
+        }}
+      />
 
-        {/* Latin motto */}
-        <motion.p
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, duration: 1 }}
-          className="text-[0.65rem] xs:text-xs sm:text-sm md:text-base mt-4 max-w-[280px] xs:max-w-xs sm:max-w-sm mx-auto text-gray-200 italic font-inter"
-        >
-         <b> “Lux Mentis, Lux Orbis” — The Light of the Mind is the Light of the World.</b>
-        </motion.p>
+      {/* Gold arc — signature element */}
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] opacity-10 pointer-events-none">
+        <svg viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="600" cy="0" r="400" stroke="#C9A84C" strokeWidth="1.5" fill="none" />
+          <circle cx="600" cy="0" r="300" stroke="#C9A84C" strokeWidth="0.8" fill="none" />
+        </svg>
+      </div>
+      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] opacity-[0.06] pointer-events-none">
+        <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="0" cy="400" r="280" stroke="#C9A84C" strokeWidth="1" fill="none" />
+        </svg>
+      </div>
 
-        {/* Description */}
-        <motion.p
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2, duration: 1 }}
-          className="text-[0.6rem] xs:text-[0.7rem] sm:text-sm md:text-base mt-6 max-w-[280px] xs:max-w-xs sm:max-w-sm mx-auto text-gray-300"
-        >
-          A citadel of excellence, discipline, and godly heritage — shaping leaders with timeless values. 
-        </motion.p>
+      {/* Main content */}
+      <div className="relative z-10 max-w-4xl mx-auto px-6 text-center pt-24 pb-16">
 
-        {/* Call to Action */}
-        <motion.a
-          href="/AboutFaith"
-          aria-label="Scroll to About Section"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 1.8, duration: 0.8 }}
-          className="mt-10 inline-block px-4 xs:px-5 sm:px-6 py-2 xs:py-2.5 sm:py-3 border border-white text-[0.65rem] xs:text-xs sm:text-sm md:text-base font-semibold uppercase hover:bg-white hover:text-black transition duration-300 tracking-wide rounded"
-        >
-          Enter the Legacy
-        </motion.a>
-
-        {/* Scroll Icon */}
+        {/* Eyebrow */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2.4, duration: 1 }}
-          className="absolute bottom-4 sm:bottom-6"
+          transition={{ duration: 0.7, ease: "easeOut" }}
+          className="flex items-center justify-center gap-3 mb-8"
         >
-          <FaArrowDown className="text-white text-lg sm:text-xl animate-bounce" />
+          <div className="h-px w-12 bg-[#C9A84C]" />
+          <span className="text-[#C9A84C] text-xs tracking-[0.25em] uppercase" style={inter}>
+            Est. Makurdi, Benue State
+          </span>
+          <div className="h-px w-12 bg-[#C9A84C]" />
         </motion.div>
-        <BackToTopButton/>
+
+        {/* Crest circle */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.85 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
+          className="w-20 h-20 mx-auto mb-8 rounded-full border-2 border-[#C9A84C] flex items-center justify-center"
+        >
+          <span className="text-[#C9A84C] font-bold text-xl tracking-wider" style={playfair}>FSS</span>
+        </motion.div>
+
+        {/* Main headline */}
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.2, ease: "easeOut" }}
+          className="text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] mb-6"
+          style={playfair}
+        >
+          Faith Secondary
+          <br />
+          <em className="text-[#C9A84C] not-italic">School</em>
+        </motion.h1>
+
+        {/* Motto */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.45 }}
+          className="text-white/50 text-sm tracking-[0.15em] uppercase mb-6"
+          style={inter}
+        >
+          Lux Mentis, Lux Orbis
+        </motion.p>
+
+        {/* Tagline */}
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="text-white/70 text-base sm:text-lg max-w-md mx-auto leading-relaxed mb-12"
+          style={inter}
+        >
+          A citadel of excellence, discipline, and godly heritage — shaping the next generation of Nigerian leaders.
+        </motion.p>
+
+        {/* CTAs */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.8 }}
+          className="flex flex-col sm:flex-row items-center justify-center gap-4"
+        >
+          <Link
+            to="/admission"
+            className="px-8 py-3 bg-[#C9A84C] text-[#0D3B2E] font-semibold text-sm tracking-wide rounded hover:bg-[#E8C96A] transition-all duration-200 hover:shadow-lg hover:shadow-[#C9A84C]/20"
+            style={inter}
+          >
+            Apply for Admission
+          </Link>
+          <Link
+            to="/AboutFaith"
+            className="px-8 py-3 border border-white/30 text-white text-sm tracking-wide rounded hover:border-white/60 hover:bg-white/5 transition-all duration-200"
+            style={inter}
+          >
+            Discover Our Story
+          </Link>
+        </motion.div>
       </div>
+
+      {/* Scroll indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.4, duration: 1 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+      >
+        <span className="text-white/30 text-[10px] tracking-[0.2em] uppercase" style={inter}>Scroll</span>
+        <div className="w-px h-8 bg-gradient-to-b from-white/30 to-transparent animate-pulse" />
+      </motion.div>
     </section>
   );
-};
-
-export default HeroSection;
+}

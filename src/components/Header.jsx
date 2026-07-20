@@ -1,130 +1,116 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  FiMenu,
-  FiX,
-  FiChevronDown,
-  FiBookOpen,
-  FiAward,
-  FiLogIn,
-  FiUserPlus,
-  FiShield
-} from "react-icons/fi";
-import '../index.css';
+import { FiMenu, FiX } from "react-icons/fi";
 
-const Header = () => {
-  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [showDropdown, setShowDropdown] = useState(false);
+const NAV = [
+  { label: "Home", to: "/" },
+  { label: "About", to: "/AboutFaith" },
+  { label: "Admissions", to: "/admission" },
+  { label: "Results", to: "/results" },
+  { label: "Contact", to: "/ContactFaith" },
+];
 
-  const toggleMobileMenu = () => setMobileMenuOpen(!isMobileMenuOpen);
+export default function Header() {
+  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => setOpen(false), [location]);
+
+  const isHome = location.pathname === "/";
 
   return (
-    <header className="bg-white shadow-md sticky top-0 z-50 font-serif w-full">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        scrolled || !isHome
+          ? "bg-[#0D3B2E] shadow-lg"
+          : "bg-transparent"
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
         {/* Logo */}
-        <Link
-          to="/"
-          className="flex items-center gap-2 text-gray-900 hover:scale-105 transition duration-300"
-          title="Faith Secondary"
-        >
-          <div className="bg-gradient-to-tr from-indigo-700 via-purple-700 to-pink-600 p-2 rounded-full shadow-lg">
-            <FiShield size={22} className="text-white" />
+        <Link to="/" className="flex items-center gap-3 group">
+          <div className="w-9 h-9 rounded-full border-2 border-[#C9A84C] flex items-center justify-center">
+            <span className="text-[#C9A84C] font-bold text-xs tracking-widest" style={{ fontFamily: "'Playfair Display', serif" }}>FSS</span>
           </div>
-          <span className="font-bold tracking-tight text-base xs:text-lg font-gro hidden xs:inline">
-            FSS
+          <span className="text-white font-semibold text-sm tracking-wide hidden sm:block" style={{ fontFamily: "'Inter', sans-serif" }}>
+            Faith Secondary School
           </span>
         </Link>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-6 text-gray-800 text-sm font-medium font-inter">
-          <Link to="/" className="hover:text-indigo-700 transition">Home</Link>
-          <Link to="/AboutFaith" className="hover:text-indigo-700 transition">About</Link>
-
-          {/* Dropdown */}
-          <div
-            className="relative"
-            onMouseEnter={() => setShowDropdown(true)}
-            onMouseLeave={() => setShowDropdown(false)}
+        {/* Desktop nav */}
+        <nav className="hidden md:flex items-center gap-8">
+          {NAV.map(({ label, to }) => (
+            <Link
+              key={to}
+              to={to}
+              className={`text-sm tracking-wide transition-colors duration-200 ${
+                location.pathname === to
+                  ? "text-[#C9A84C]"
+                  : "text-white/80 hover:text-white"
+              }`}
+              style={{ fontFamily: "'Inter', sans-serif", fontWeight: 400 }}
+            >
+              {label}
+            </Link>
+          ))}
+          <Link
+            to="/results"
+            className="ml-2 px-4 py-1.5 bg-[#C9A84C] text-[#0D3B2E] text-sm font-semibold rounded tracking-wide hover:bg-[#E8C96A] transition-colors"
+            style={{ fontFamily: "'Inter', sans-serif" }}
           >
-            <button className="flex items-center gap-1 hover:text-indigo-700 transition">
-              Academics <FiChevronDown size={14} />
-            </button>
-
-            <AnimatePresence>
-              {showDropdown && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  className="absolute top-full mt-2 bg-white border border-gray-200 shadow-lg rounded-md w-48 z-50"
-                >
-                  <Link to="/admission" className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-sm">
-                    <FiBookOpen /> Admissions
-                  </Link>
-                  <Link to="/results" className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-sm">
-                    <FiAward /> Results
-                  </Link>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-
-
-          {/* Auth Buttons */}
-          <div className="ml-4 flex space-x-2">
-            <Link
-              to="/login"
-              className="flex items-center gap-1 px-3 py-1.5 border border-gray-800 rounded hover:bg-gray-100 text-sm"
-            >
-              <FiLogIn size={14} /> Login
-            </Link>
-            <Link
-              to="/register"
-              className="flex items-center gap-1 px-3 py-1.5 border border-indigo-700 text-indigo-700 rounded hover:bg-indigo-50 text-sm"
-            >
-              <FiUserPlus size={14} /> Register
-            </Link>
-          </div>
+            Check Results
+          </Link>
         </nav>
 
-        {/* Mobile Hamburger */}
-        <div className="md:hidden text-gray-900">
-          <button onClick={toggleMobileMenu}>
-            {isMobileMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
-          </button>
-        </div>
+        {/* Mobile toggle */}
+        <button
+          className="md:hidden text-white p-1"
+          onClick={() => setOpen(o => !o)}
+          aria-label="Toggle menu"
+        >
+          {open ? <FiX size={22} /> : <FiMenu size={22} />}
+        </button>
       </div>
 
-      {/* Mobile Navigation */}
+      {/* Mobile menu */}
       <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.nav
-            initial={{ height: 0 }}
-            animate={{ height: "auto" }}
-            exit={{ height: 0 }}
-            className="md:hidden bg-white border-t border-gray-200 px-6 py-4 space-y-4 text-gray-800 font-inter w-full"
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="md:hidden bg-[#081F18] border-t border-white/10 overflow-hidden"
           >
-            <Link to="/" onClick={toggleMobileMenu} className="block">Home</Link>
-            <Link to="/about" onClick={toggleMobileMenu} className="block">About</Link>
-            <Link to="/admission" onClick={toggleMobileMenu} className="flex items-center gap-2">
-              <FiBookOpen /> Admissions
-            </Link>
-            <Link to="/results" onClick={toggleMobileMenu} className="flex items-center gap-2">
-              <FiAward /> Results
-            </Link>
-            <Link to="/ContactFaith" onClick={toggleMobileMenu} className="block">Contact</Link>
-            <Link to="/login" onClick={toggleMobileMenu} className="flex items-center gap-2">
-              <FiLogIn /> Login
-            </Link>
-            <Link to="/register" onClick={toggleMobileMenu} className="flex items-center gap-2">
-              <FiUserPlus /> Register
-            </Link>
-          </motion.nav>
+            <nav className="px-6 py-4 flex flex-col gap-4">
+              {NAV.map(({ label, to }) => (
+                <Link
+                  key={to}
+                  to={to}
+                  className={`text-sm py-1 border-b border-white/5 ${
+                    location.pathname === to ? "text-[#C9A84C]" : "text-white/80"
+                  }`}
+                >
+                  {label}
+                </Link>
+              ))}
+              <Link
+                to="/results"
+                className="mt-2 px-4 py-2 bg-[#C9A84C] text-[#0D3B2E] text-sm font-semibold rounded text-center"
+              >
+                Check Results
+              </Link>
+            </nav>
+          </motion.div>
         )}
       </AnimatePresence>
     </header>
   );
-};
-
-export default Header;
+}
